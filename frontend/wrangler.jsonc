@@ -1,0 +1,13 @@
+// Cloudflare Workers config for serving the built frontend as static assets.
+// Used by the dashboard "Workers Builds" flow: root directory `frontend`,
+// build command `npm run build`, deploy command `npx wrangler deploy`.
+{
+  "name": "spark25",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": "./dist",
+    // Serve index.html for unknown paths so SPA routes like /blog work on
+    // refresh (Workers assets ignore the Netlify-style _redirects file).
+    "not_found_handling": "single-page-application"
+  }
+}
