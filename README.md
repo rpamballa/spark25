@@ -7,6 +7,21 @@ Marketing site and blog platform for Spark25 — a React (Vite + Tailwind CSS) f
 - `frontend/` — Vite + React app (marketing pages, blog, editor, dashboard)
 - `backend/` — Express API server (auth, blogs, comments, notifications, contact)
 
+## Deployment
+
+- **Frontend** — Cloudflare Workers static assets, live at [spark25.com](https://spark25.com).
+  Configured by `frontend/wrangler.jsonc`; builds from this repo (root directory
+  `frontend`, build `npm run build`, deploy `npx wrangler deploy`). The API base
+  URL is baked in at build time from the `VITE_API_URL` build variable.
+- **Backend** — Render web service at `https://spark25-api.onrender.com`,
+  configured by `render.yaml` (Node 22, `npm start`, health check on `/`).
+  Secrets: `MONGO_URI` env var, plus the Firebase Admin key mounted as the
+  `firebase-service-account.json` secret file.
+- **Database** — MongoDB Atlas (free M0 cluster, database name `spark25`).
+
+Pushes to the production branch auto-deploy both the Cloudflare frontend and
+the Render backend.
+
 ## Getting started
 
 ### Frontend
