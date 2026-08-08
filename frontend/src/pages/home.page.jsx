@@ -708,10 +708,10 @@ const HomePage = () => {
                   <div className="mt-6 md:mb-10">
                     <p className="mb-2 text-gray-400">Email us</p>
                     <a
-                      href="mailto:info@spark25.com"
+                      href="mailto:lesya@spark25.com"
                       className="text-2xl text-white hover:text-gray-300"
                     >
-                      info@spark25.com
+                      lesya@spark25.com
                     </a>
                   </div>
                   {/* <div className="mb-3">

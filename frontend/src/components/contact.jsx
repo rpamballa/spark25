@@ -86,10 +86,10 @@ const ContactUs = ({ isOpen, toggleContactForm }) => {
             <div className="mb-6 md:mb-10">
               <p className="mb-2 text-gray-400">Email us</p>
               <a
-                href="mailto:info@spark25.com"
+                href="mailto:lesya@spark25.com"
                 className={`text-3xl hover:text-gray-300 ${theme === "light" ? "text-black" : "text-white"}`}
               >
-                info@spark25.com
+                lesya@spark25.com
               </a>
             </div>
             {/* <div className="mb-3 md:mb-10">
