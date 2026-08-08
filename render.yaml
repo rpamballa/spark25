@@ -1,0 +1,29 @@
+# Render blueprint for the Spark25 API server.
+# Deploy via: Render dashboard -> New -> Blueprint -> select this repo.
+# The frontend is hosted separately (Cloudflare Workers) and points here
+# via its VITE_API_URL build variable.
+services:
+  - type: web
+    name: spark25-api
+    runtime: node
+    plan: free
+    branch: claude/website-build-artifacts-opw535
+    healthCheckPath: /
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      # Set in the Render dashboard when the blueprint prompts for it:
+      # your MongoDB Atlas connection string, e.g.
+      # mongodb+srv://<user>:<password>@<cluster>/spark25?retryWrites=true&w=majority
+      - key: MONGO_URI
+        sync: false
+      # Auto-generated random secret for signing auth tokens.
+      - key: JWT_SECRET
+        generateValue: true
+      # The Firebase Admin key is uploaded as a Render Secret File named
+      # firebase-service-account.json (Environment -> Secret Files).
+      - key: FIREBASE_SERVICE_ACCOUNT_PATH
+        value: /etc/secrets/firebase-service-account.json
+      # Optional integrations; add real values in the dashboard to enable:
+      # AWS_ACCESS_KEY / AWS_SECRET_ACCESS_KEY   (S3 blog-image uploads)
+      # MAILCHIMP_API_KEY / MAILCHIMP_LIST_ID / MAILCHIMP_SERVER_PREFIX
