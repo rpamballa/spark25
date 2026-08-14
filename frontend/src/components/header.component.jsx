@@ -84,6 +84,7 @@ const Header = () => {
 
           {/* Desktop Menu (shown on larger screens) */}
           <div className="hidden md:flex space-x-8 ml-auto mr-6">
+            {/* Blog tab hidden until the blog launches
             <Link
               to="/blog"
               className={`${
@@ -92,6 +93,7 @@ const Header = () => {
             >
               Blog
             </Link>
+            */}
             <button
               onClick={toggleContactForm}
               className={`md:px-4 flex justify-center items-center py-2 px-2 border md:text-xl ${
@@ -144,6 +146,7 @@ const Header = () => {
                   : "bg-[linear-gradient(to_right,_#211258,_#2d24a8,_#191b70,_#080824)]"
               }  py-4 px-8 text-center overflow-hidden transition-all duration-300 ease-in-out`}
           >
+            {/* Blog tab hidden until the blog launches
             <Link
               to="/blog"
               onClick={handleMenuClick}
@@ -153,6 +156,7 @@ const Header = () => {
             >
               Blog
             </Link>
+            */}
             <button
               onClick={() => {
                 handleMenuClick();
