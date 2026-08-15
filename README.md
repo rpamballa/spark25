@@ -49,4 +49,4 @@ The backend requires a `.env` file (MongoDB connection, JWT secret, AWS and Mail
 
 The "Brands We've Helped" marquee on the home page is driven by the logo assets in `frontend/src/imgs/logos/`. Logos are rendered monochrome (`brightness-0`) for a uniform look against the section's fixed light background; drop a new SVG/PNG in that folder and add it to the `brands` list in `frontend/src/components/spark25Marquee.jsx` to extend it.
 
-_Last deploy trigger: 2026-08-15_
+_Last deploy trigger: 2026-08-15 (post Git reconnect)_
