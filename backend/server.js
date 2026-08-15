@@ -236,8 +236,13 @@ server.post("/signup", async (req, res) => {
     // Save the new user to the database
     const savedUser = await newUser.save();
 
-    // Register email to Mailchimp
-    await registerToMailchimp(email);
+    // Register email to Mailchimp; signup must still succeed if this fails
+    // (e.g. Mailchimp is down or not configured in this environment)
+    try {
+      await registerToMailchimpContact({ email, name: fullname });
+    } catch (mailchimpError) {
+      console.error("Mailchimp registration failed:", mailchimpError.message);
+    }
 
     // Send bulk email after registration
     // const subject = 'Welcome to Our Website';
@@ -255,6 +260,8 @@ server.post("/signup", async (req, res) => {
     if (error.code === 11000) {
       return res.status(500).json({ error: "Email already exists" });
     }
+
+    return res.status(500).json({ error: "Failed to create account" });
   }
 });
 
