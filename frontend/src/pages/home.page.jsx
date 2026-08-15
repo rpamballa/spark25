@@ -76,6 +76,10 @@ const HomePage = () => {
     setIsContactOpen(!isContactOpen);
   };
 
+  // Flip to true when the blog launches publicly (also restore the header
+  // links in header.component.jsx).
+  const showBlogSection = false;
+
   return (
     <>
       <div className="relative">
@@ -463,6 +467,7 @@ const HomePage = () => {
             </div>
           </div>
 
+          {showBlogSection && (
           <div
             id="blog"
             className={`${
@@ -539,6 +544,7 @@ const HomePage = () => {
               </div> */}
             </div>
           </div>
+          )}
 
           <div
             id="about-us"
