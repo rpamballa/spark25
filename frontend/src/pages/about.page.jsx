@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Header from "../components/header.component";
 
-import lesyaPhoto from "../imgs/lesya.png";
+import lesyaPhoto from "../imgs/lesya.jpg";
 
 const bioParagraphs = [
   "Lesya Pishchevskaya, Founder of Spark25 LLC, is a marketing, video interview, and media consultant and host partnering with Francine Mbvoumbo, Founder of Mothers to Daughters (M2D), for events throughout New York Fashion Week Fall 2026. As a special media liaison for M2D, Lesya helps bring conversations with designers, founders, creatives, and industry leaders to life through on-camera interviews and video storytelling. Their collaboration explores creatives’ and designers’ positioning in the age of AI, followed by broader conversations about fashion, creativity, technology, mentorship, and intergenerational connection.",
