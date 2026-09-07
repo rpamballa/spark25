@@ -84,6 +84,14 @@ const Header = () => {
 
           {/* Desktop Menu (shown on larger screens) */}
           <div className="hidden md:flex space-x-8 ml-auto mr-6">
+            <Link
+              to="/about"
+              className={`${
+                theme == "light" ? "text-black " : "text-white "
+              } text-xl mt-3 px-2`}
+            >
+              About
+            </Link>
             {/* Blog tab hidden until the blog launches
             <Link
               to="/blog"
@@ -146,6 +154,15 @@ const Header = () => {
                   : "bg-[linear-gradient(to_right,_#211258,_#2d24a8,_#191b70,_#080824)]"
               }  py-4 px-8 text-center overflow-hidden transition-all duration-300 ease-in-out`}
           >
+            <Link
+              to="/about"
+              onClick={handleMenuClick}
+              className={`block ${
+                theme == "light" ? "text-black" : "text-white"
+              } py-2`}
+            >
+              About
+            </Link>
             {/* Blog tab hidden until the blog launches
             <Link
               to="/blog"

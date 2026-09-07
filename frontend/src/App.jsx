@@ -20,6 +20,7 @@ import ManageBlogs from "./pages/manage-blogs.page";
 import BlogHomePage from "./pages/blog.home.page";
 import ManageUsers from "./components/manageUsersCard";
 import HomePage from "./pages/home.page";
+import AboutPage from "./pages/about.page";
 import PrivacyPolicyPage from "./pages/privacy.policy";
 
 
@@ -56,6 +57,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage/>} />
             <Route path="/editor" element={<Editor />} />
             <Route path="/editor/:blog_id" element={<Editor />} />
