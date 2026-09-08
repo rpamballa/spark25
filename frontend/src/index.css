@@ -298,3 +298,85 @@
 :where(.spark-page) ul {
   list-style: none;
 }
+
+/*
+ * The privacy policy is generated HTML injected at runtime, carrying its own
+ * inline <style> block of Arial !important rules. These overrides are scoped
+ * two classes deep so they outrank it and bring the document into the
+ * marketing site's type system.
+ */
+.spark-page .spark-legal,
+.spark-page .spark-legal * {
+  font-family: "Archivo", system-ui, sans-serif !important;
+  background: transparent !important;
+}
+
+.spark-page .spark-legal [data-custom-class="title"],
+.spark-page .spark-legal [data-custom-class="title"] * {
+  font-size: clamp(30px, 4vw, 46px) !important;
+  font-weight: 900 !important;
+  letter-spacing: -1.5px !important;
+  line-height: 1.05 !important;
+  color: #101010 !important;
+  text-transform: uppercase;
+}
+
+.spark-page .spark-legal [data-custom-class="subtitle"],
+.spark-page .spark-legal [data-custom-class="subtitle"] * {
+  font-family: "JetBrains Mono", ui-monospace, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
+  color: #55534d !important;
+}
+
+.spark-page .spark-legal [data-custom-class="heading_1"],
+.spark-page .spark-legal [data-custom-class="heading_1"] * {
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.5px !important;
+  color: #101010 !important;
+}
+
+.spark-page .spark-legal [data-custom-class="heading_2"],
+.spark-page .spark-legal [data-custom-class="heading_2"] * {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  color: #101010 !important;
+}
+
+.spark-page .spark-legal [data-custom-class="body_text"],
+.spark-page .spark-legal [data-custom-class="body_text"] * {
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+  color: #3a3833 !important;
+}
+
+.spark-page .spark-legal [data-custom-class="link"],
+.spark-page .spark-legal [data-custom-class="link"] * {
+  color: #4f2fe0 !important;
+  text-decoration: underline;
+}
+
+/* The generated markup nests headings inside divs with tight spacing. */
+.spark-page .spark-legal [data-custom-class="heading_1"] {
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(16, 16, 16, 0.3);
+}
+
+.spark-page .spark-legal ul,
+.spark-page .spark-legal ol {
+  list-style: revert;
+  padding-left: 22px;
+}
+
+.spark-page .spark-legal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* The page supplies its own PRIVACY POLICY masthead, so the generated
+   document's duplicate title is suppressed. */
+.spark-page .spark-legal [data-custom-class="title"] {
+  display: none;
+}

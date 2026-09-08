@@ -68,7 +68,7 @@ const AboutPage = () => (
             <img
               src={lesyaPhoto}
               alt="Lesya Pishchevskaya, Founder of Spark25"
-              className="w-full h-[300px] md:h-[380px] object-cover object-[center_18%] block grayscale contrast-[1.05]"
+              className="w-full h-auto block grayscale contrast-[1.05]"
             />
             <figcaption className="spark-mono text-[10px] tracking-[1.5px] text-[#55534d] pt-3 leading-[1.7] border-t border-[rgba(16,16,16,0.3)] mt-3">
               LESYA PISHCHEVSKAYA
