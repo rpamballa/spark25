@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import SiteHeader from "../components/site-header.component";
+import SiteFooter from "../components/site-footer.component";
 import ContactUs from "../components/contact";
 
 /* The three-step thread that runs through the whole page. */
@@ -492,39 +493,7 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* --------------------------------------------------------------- Footer */}
-        <footer
-          className={`relative ${SECTION_X} border-t border-[#101010] py-5 flex flex-col md:flex-row md:justify-between gap-2 spark-mono text-[10px] md:text-[10.5px] tracking-[1.5px] text-[#55534d]`}
-        >
-          <p>SPARK25 LLC — B2B SAAS GROWTH, LIFECYCLE &amp; CUSTOMER SUCCESS</p>
-          <p>
-            <a href="/about" className="hover:text-[#4f2fe0]">
-              ABOUT
-            </a>{" "}
-            /{" "}
-            <a href="/privacy-policy" className="hover:text-[#4f2fe0]">
-              PRIVACY
-            </a>{" "}
-            /{" "}
-            <a
-              href="https://www.linkedin.com/in/lesyap"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#4f2fe0]"
-            >
-              LINKEDIN
-            </a>{" "}
-            /{" "}
-            <a
-              href="https://www.instagram.com/spark25agency"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#4f2fe0]"
-            >
-              INSTAGRAM
-            </a>
-          </p>
-        </footer>
+        <SiteFooter />
       </main>
 
       <ContactUs isOpen={isContactOpen} toggleContactForm={toggleContactForm} />

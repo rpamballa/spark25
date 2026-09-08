@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AlignJustify, X } from "react-feather";
 
 import ContactUs from "./contact";
@@ -10,6 +10,9 @@ import ContactUs from "./contact";
  * separate from the blog's Header, which keeps its own theme toggle.
  */
 const SiteHeader = () => {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
@@ -32,9 +35,14 @@ const SiteHeader = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8 spark-mono text-[11px] tracking-[1.5px]">
-            <a href="#services" className="text-[#101010] hover:text-[#4f2fe0]">
+            {!isHome && (
+              <Link to="/" className="text-[#101010] hover:text-[#4f2fe0]">
+                [ HOME ]
+              </Link>
+            )}
+            <Link to="/#services" className="text-[#101010] hover:text-[#4f2fe0]">
               [ SERVICES ]
-            </a>
+            </Link>
             <Link to="/about" className="text-[#101010] hover:text-[#4f2fe0]">
               [ ABOUT ]
             </Link>
@@ -64,13 +72,22 @@ const SiteHeader = () => {
 
         {isMenuOpen && (
           <div className="md:hidden border-t border-[#101010] px-5 py-4 flex flex-col gap-3 spark-mono text-[12px] tracking-[1.5px] bg-[#eceae4]">
-            <a
-              href="#services"
+            {!isHome && (
+              <Link
+                to="/"
+                onClick={() => setIsMenuOpen(false)}
+                className="py-2 text-[#101010]"
+              >
+                [ HOME ]
+              </Link>
+            )}
+            <Link
+              to="/#services"
               onClick={() => setIsMenuOpen(false)}
               className="py-2 text-[#101010]"
             >
               [ SERVICES ]
-            </a>
+            </Link>
             <Link
               to="/about"
               onClick={() => setIsMenuOpen(false)}
