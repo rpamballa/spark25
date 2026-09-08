@@ -3,17 +3,20 @@ import SiteFooter from "../components/site-footer.component";
 
 import lesyaPhoto from "../imgs/lesya.jpg";
 
+const TAGLINE =
+  "Marketing \u0026 Growth Strategist with a Journalist\u2019s Curiosity";
+
 const LEAD =
-  "Lesya Pishchevskaya, Founder of Spark25 LLC, is a marketing, video interview, and media consultant and host partnering with Francine Mbvoumbo, Founder of Mothers to Daughters (M2D), for events throughout New York Fashion Week Fall 2026. As a special media liaison for M2D, Lesya helps bring conversations with designers, founders, creatives, and industry leaders to life through on-camera interviews and video storytelling. Their collaboration explores creatives' and designers' positioning in the age of AI, followed by broader conversations about fashion, creativity, technology, mentorship, and intergenerational connection.";
+  "Lesya Pishchevskaya is the Founder of Spark25, a B2B SaaS growth consultancy helping Founders and C-Suite leaders uncover revenue leaks, activate high-impact growth opportunities, and build more valuable businesses. Her work spans growth strategy, lifecycle marketing, Customer Success, customer engagement, retention, expansion, AI and automation, and cross-functional execution across Marketing, Sales, and Customer Success.";
 
 const BIO = [
   {
-    label: "JOURNALISM",
-    text: "Lesya earned a Master of Science in Journalism from Columbia University and has produced journalism, video, and interview work for AlleyWatch, BayFashion Magazine, and the Silicon Valley Open Doors International Startup Investment Conference. Her interviewing style combines a journalist's curiosity with a marketer's understanding of audience, brand, and cultural relevance. In 2017, Lesya acted as Julia, a fashion house owner, in the independent film The Reditus, produced by Christiano Evans.",
+    label: "GROWTH",
+    text: "Lesya is a senior marketing and growth leader with 15+ years of experience across global technology companies, high-growth startups, nonprofits, and entrepreneurial ventures. Her career includes work with Meta, Google, RingCentral, ABC Fitness/Glofox, Dollar Shave Club, HungerRush, Aiify, and other technology companies. She also served as Head of Marketing for Women in Automation from 2025–2026. Through Spark25, she works with B2B SaaS companies to identify the growth opportunities most likely to increase revenue, customer value, and enterprise value, including opportunities to use AI and automation to improve efficiency, personalization, customer engagement, and execution.",
   },
   {
-    label: "GROWTH",
-    text: "Professionally, Lesya is a senior marketing and growth leader with experience spanning global technology companies, high-growth startups, nonprofits, and entrepreneurial ventures. Her career includes work with Meta, Google, Apple, Disney, Dollar Shave Club, and Fuel: Print on Demand, and she served as Head of Marketing for Women in Automation from 2025–2026. Through Spark25, she focuses on SaaS and SMB marketing, ecommerce, and personal brands, advising organizations on marketing strategy, brand positioning, digital and lifecycle marketing, customer engagement, content, events, and growth, with hands-on experience building and scaling online businesses and brands.",
+    label: "JOURNALISM",
+    text: "Alongside her consulting work, Lesya has a background in journalism, interviewing, video, and storytelling. She earned a Master of Science in Journalism from Columbia University and has produced journalism, video, and interview work for AlleyWatch, BayFashion Magazine, and the Silicon Valley Open Doors International Startup Investment Conference. Her interviewing style combines a journalist’s curiosity with a marketer’s understanding of audience, positioning, brand, and cultural relevance.",
   },
   {
     label: "OFF THE CLOCK",
@@ -52,15 +55,27 @@ const AboutPage = () => (
         </h1>
         <div className="spark-bar h-[6px] md:h-[10px] bg-[#101010] my-4 md:my-5" />
 
-        <div className="grid lg:grid-cols-[1fr_360px] gap-8 lg:gap-14 items-start pb-10 md:pb-12">
+        <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-14 items-start pb-12 md:pb-14">
           <div>
-            <p className="text-[18px] md:text-[22px] leading-[1.45] font-medium max-w-[720px]">
-              Founder of Spark25. Marketing and media consultant, video
-              interview host, journalist and storyteller.
+            <p className="text-[clamp(19px,2.1vw,26px)] leading-[1.35] font-medium max-w-[760px] tracking-[-0.3px]">
+              {TAGLINE}
             </p>
             <p className="text-[15.5px] md:text-[17px] leading-[1.75] text-[#3a3833] max-w-[720px] pt-6">
               {LEAD}
             </p>
+
+            <dl className="grid sm:grid-cols-3 gap-6 border-t-2 border-[#101010] pt-6 mt-8">
+              {CREDENTIALS.map(([term, detail]) => (
+                <div key={term}>
+                  <dt className="font-[900] text-[clamp(17px,1.7vw,22px)] tracking-[-0.7px] leading-[1.1]">
+                    {term}
+                  </dt>
+                  <dd className="spark-mono text-[10.5px] tracking-[1.2px] text-[#55534d] pt-2 leading-[1.6]">
+                    {detail}
+                  </dd>
+                </div>
+              ))}
+            </dl>
 
           </div>
 
@@ -77,22 +92,6 @@ const AboutPage = () => (
             </figcaption>
           </figure>
         </div>
-      </section>
-
-      {/* ----------------------------------------------------------- Credentials */}
-      <section className={`relative ${SECTION_X} pb-12 md:pb-14`}>
-        <dl className="grid sm:grid-cols-3 gap-6 border-t-2 border-[#101010] pt-7">
-          {CREDENTIALS.map(([term, detail]) => (
-            <div key={term}>
-              <dt className="font-[900] text-[clamp(20px,2.2vw,28px)] tracking-[-1px] leading-[1.1]">
-                {term}
-              </dt>
-              <dd className="spark-mono text-[10.5px] tracking-[1.2px] text-[#55534d] pt-2.5 leading-[1.6]">
-                {detail}
-              </dd>
-            </div>
-          ))}
-        </dl>
       </section>
 
       {/* ------------------------------------------------------------------ Bio */}
