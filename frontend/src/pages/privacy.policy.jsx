@@ -51,7 +51,7 @@ const PrivacyPolicyPage = () => {
 
         <section className={`relative ${SECTION_X} pt-10 md:pt-12 pb-8`}>
           <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
-            00 — LEGAL
+            LEGAL
           </p>
           <h1 className="font-[900] leading-[0.92] tracking-[-2px] md:tracking-[-3.5px] text-[clamp(38px,6.4vw,88px)]">
             PRIVACY

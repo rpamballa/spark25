@@ -8,15 +8,15 @@ const LEAD =
 
 const BIO = [
   {
-    label: "01 — JOURNALISM",
+    label: "JOURNALISM",
     text: "Lesya earned a Master of Science in Journalism from Columbia University and has produced journalism, video, and interview work for AlleyWatch, BayFashion Magazine, and the Silicon Valley Open Doors International Startup Investment Conference. Her interviewing style combines a journalist's curiosity with a marketer's understanding of audience, brand, and cultural relevance. In 2017, Lesya acted as Julia, a fashion house owner, in the independent film The Reditus, produced by Christiano Evans.",
   },
   {
-    label: "02 — GROWTH",
+    label: "GROWTH",
     text: "Professionally, Lesya is a senior marketing and growth leader with experience spanning global technology companies, high-growth startups, nonprofits, and entrepreneurial ventures. Her career includes work with Meta, Google, Apple, Disney, Dollar Shave Club, and Fuel: Print on Demand, and she served as Head of Marketing for Women in Automation from 2025–2026. Through Spark25, she focuses on SaaS and SMB marketing, ecommerce, and personal brands, advising organizations on marketing strategy, brand positioning, digital and lifecycle marketing, customer engagement, content, events, and growth, with hands-on experience building and scaling online businesses and brands.",
   },
   {
-    label: "03 — OFF THE CLOCK",
+    label: "OFF THE CLOCK",
     text: "Outside of work, Lesya enjoys traveling and exploring different cultures, mentoring UC Berkeley alumni, and performing stand-up comedy.",
   },
 ];
@@ -42,7 +42,7 @@ const AboutPage = () => (
       {/* ------------------------------------------------------------- Masthead */}
       <section className={`relative ${SECTION_X} pt-10 md:pt-12`}>
         <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6 md:pb-7">
-          00 — THE FOUNDER
+          THE FOUNDER
         </p>
 
         <h1 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4px] text-[clamp(40px,7vw,98px)]">

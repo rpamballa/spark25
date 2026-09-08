@@ -178,7 +178,7 @@ const HomePage = () => {
         {/* ---------------------------------------------------------------- Hero */}
         <section className={`relative ${SECTION_X} pt-10 md:pt-12`}>
           <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6 md:pb-7">
-            01 — B2B SAAS GROWTH CONSULTANCY — SF / NY
+            B2B SAAS GROWTH CONSULTANCY — SF / NY
           </p>
 
           <h1 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4.5px] text-[clamp(40px,7.4vw,104px)]">
@@ -246,7 +246,7 @@ const HomePage = () => {
         {/* ------------------------------------------------------------ The thread */}
         <section className={`relative ${SECTION_X} pt-14 md:pt-16`}>
           <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
-            02 — THE THREAD
+            THE THREAD
           </p>
           <div className="grid md:grid-cols-3 border-t-2 border-[#101010]">
             {THREAD.map((item, index) => (
@@ -279,7 +279,7 @@ const HomePage = () => {
         {/* -------------------------------------------------------------- Services */}
         <section id="services" className={`relative ${SECTION_X} pt-14 md:pt-16`}>
           <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
-            03 — SERVICES
+            SERVICES
           </p>
           <div className="grid lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-14 items-start pb-8">
             <h2 className="font-[900] text-[clamp(32px,4.6vw,62px)] leading-[0.94] tracking-[-1.5px] md:tracking-[-2.5px]">
@@ -301,8 +301,8 @@ const HomePage = () => {
           <div className="flex flex-col">
             {SERVICES.map((service, index) => (
               <article
-                key={service.id}
-                className={`grid lg:grid-cols-[74px_1fr_1.35fr] gap-4 lg:gap-8 py-7 md:py-8 ${
+                key={service.title}
+                className={`grid lg:grid-cols-[1fr_1.35fr] gap-4 lg:gap-8 py-7 md:py-8 ${
                   index === 0
                     ? "border-t-2 border-[#101010]"
                     : "border-t border-[#101010]"
@@ -312,9 +312,6 @@ const HomePage = () => {
                     : ""
                 }`}
               >
-                <p className="spark-mono text-[12px] text-[#4f2fe0] lg:pt-1.5">
-                  [{service.id}]
-                </p>
                 <div>
                   <h3 className="font-[900] text-[clamp(23px,2.5vw,31px)] tracking-[-1px] leading-[1.03]">
                     {service.title.toUpperCase()}
@@ -371,7 +368,7 @@ const HomePage = () => {
         {/* ------------------------------------------------------------ The studio */}
         <section className={`relative ${SECTION_X}`}>
           <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
-            04 — THE STUDIO
+            THE STUDIO
           </p>
           <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 items-start border-t-2 border-[#101010] pt-7">
             <h2 className="font-[900] text-[clamp(26px,2.9vw,38px)] leading-[1.05] tracking-[-1.5px]">
@@ -437,7 +434,7 @@ const HomePage = () => {
               className="spark-mono text-[11px] tracking-[2px] text-[#55534d] hidden md:block"
               style={{ writingMode: "vertical-rl" }}
             >
-              05 — TESTIMONY
+              TESTIMONY
             </p>
             <div
               className={`border-t-2 border-[#101010] pt-7 grid gap-10 ${
