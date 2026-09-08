@@ -140,9 +140,8 @@ const BREAKDOWNS = [
 ];
 
 /*
- * Client testimonials. Add a second entry here when a B2B SaaS founder or
- * C-Suite quote is available — ideally one naming a concrete result — and the
- * section switches to a two-column layout automatically.
+ * Client testimonials, carried over from the existing site. Two entries render
+ * as two columns; adding or removing one adjusts the layout automatically.
  */
 const TESTIMONIALS = [
   {
@@ -150,6 +149,12 @@ const TESTIMONIALS = [
       "She's a dynamic leader skilled at seeing the market opportunity and building a multi-channel strategy designed to drive new pipeline, increase pipeline velocity, and drive win rate.",
     name: "MICHAEL MAST",
     title: "VICE-PRESIDENT & PRODUCT MARKETING EXECUTIVE",
+  },
+  {
+    quote:
+      "Lesya is a true data-driven marketer who cares about a customer's needs first — everything she delivers is well thought out and detail-oriented. I'm impressed with the patience and persistence with which Lesya overcomes obstacles and the flexibility she applies to any challenges.",
+    name: "OLENA MALTSEVA",
+    title: "SENIOR MARKETING PROGRAM MANAGER, WEB AT DATABRICKS",
   },
 ];
 
