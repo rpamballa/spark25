@@ -4,6 +4,8 @@ import { AlignJustify, X } from "react-feather";
 
 import ContactUs from "./contact";
 
+import logoMark from "../imgs/lightLogo.png";
+
 /**
  * Marketing-site header for the Brutalist Grid design: monospace nav in
  * bracket notation, hairline rules, and a solid CTA block. Deliberately
@@ -27,11 +29,16 @@ const SiteHeader = () => {
     <>
       <header className="sticky top-0 z-50 bg-[#eceae4] border-b border-[#101010]">
         <div className="flex items-center justify-between px-5 md:px-12 py-3.5">
-          <Link
-            to="/"
-            className="font-[900] text-[18px] md:text-[20px] tracking-[-0.5px] text-[#101010]"
-          >
-            SPARK25
+          <Link to="/" className="flex items-center gap-2.5 text-[#101010]">
+            <img
+              src={logoMark}
+              alt=""
+              aria-hidden="true"
+              className="w-7 h-7 md:w-8 md:h-8 object-contain"
+            />
+            <span className="font-[900] text-[24px] md:text-[28px] tracking-[-1px] leading-none">
+              SPARK25
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8 spark-mono text-[11px] tracking-[1.5px]">
