@@ -85,12 +85,12 @@
     }
 
     #textEditor h2,
-    h2 {
+    h2:not(.spark-page *) {
         @apply font-inter text-4xl leading-normal font-bold max-md:text-3xl max-md:leading-snug !important;
     }
 
     #textEditor h3,
-    h3 {
+    h3:not(.spark-page *) {
         @apply font-inter text-3xl leading-loose max-md:text-2xl max-md:leading-normal !important;
     }
 
@@ -198,3 +198,103 @@
         background-image: url('./imgs/Rectangle.png') !important;
     }
   }
+/* ---------------------------------------------------------------------------
+   Spark25 marketing site — Brutalist Grid design system.
+   Scoped with the `spark-` prefix so it cannot affect the blog application.
+--------------------------------------------------------------------------- */
+
+.spark-page {
+  --spark-paper: #eceae4;
+  --spark-ink: #101010;
+  --spark-violet: #4f2fe0;
+  --spark-muted: #55534d;
+  --spark-body: #3a3833;
+  --spark-ghost: #b9b6ae;
+  font-family: "Archivo", system-ui, sans-serif;
+  background: var(--spark-paper);
+  color: var(--spark-ink);
+}
+
+.spark-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* The 12-column rule overlay that gives the layout its drafting-table feel. */
+.spark-grid-lines {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(16, 16, 16, 0.055) 0 1px,
+    transparent 1px calc(100% / 12)
+  );
+}
+
+@keyframes spark-tape-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.spark-tape {
+  display: flex;
+  width: max-content;
+  animation: spark-tape-scroll 34s linear infinite;
+}
+
+@keyframes spark-bar-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.spark-bar {
+  transform-origin: left;
+  animation: spark-bar-grow 1.2s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+
+@keyframes spark-cursor-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0.25; }
+}
+.spark-blink {
+  animation: spark-cursor-blink 1.6s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spark-tape,
+  .spark-bar,
+  .spark-blink {
+    animation: none;
+  }
+  .spark-bar { transform: none; }
+}
+
+/*
+ * The blog application's global rules (`* { text-base }`, `section { py-4 px }`)
+ * predate the marketing site and would otherwise pin every element on it to
+ * 14px and add stray section padding. These selectors are deliberately kept at
+ * element-level specificity via :where(), so they neutralise the globals while
+ * still losing to any Tailwind utility class on the element itself.
+ */
+:where(.spark-page) h1,
+:where(.spark-page) h2,
+:where(.spark-page) h3,
+:where(.spark-page) p,
+:where(.spark-page) a,
+:where(.spark-page) li,
+:where(.spark-page) span,
+:where(.spark-page) div,
+:where(.spark-page) button,
+:where(.spark-page) figure,
+:where(.spark-page) blockquote,
+:where(.spark-page) figcaption {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+:where(.spark-page) section {
+  padding: 0;
+}
+
+:where(.spark-page) ol,
+:where(.spark-page) ul {
+  list-style: none;
+}
