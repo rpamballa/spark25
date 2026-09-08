@@ -1,752 +1,529 @@
-import React, { useState } from "react";
-import Header from "../components/header.component";
-import "@devnomic/marquee/dist/index.css";
-import Spark25Marquee from "../components/spark25Marquee";
-import axios from "axios";
-import { AiFillLinkedin } from "react-icons/ai";
+import { useState } from "react";
+
+import SiteHeader from "../components/site-header.component";
 import ContactUs from "../components/contact";
-import { Toaster, toast } from "react-hot-toast";
-import { useSelector, useDispatch } from "react-redux";
 
-import instagramIcon from "../imgs/instagram.png";
+/* The three-step thread that runs through the whole page. */
+const THREAD = [
+  {
+    step: "STEP 01",
+    title: ["UNCOVER", "REVENUE LEAKS"],
+    body: "Find where pipeline, customer value and revenue are being lost across the lifecycle.",
+  },
+  {
+    step: "STEP 02",
+    title: ["ACTIVATE", "GROWTH LEVERS"],
+    body: "Prioritise and execute the initiatives most likely to move revenue and retention.",
+  },
+  {
+    step: "STEP 03",
+    title: ["BUILD", "EXIT VALUE"],
+    body: "Compound customer value into a more durable, more valuable business.",
+  },
+];
 
-import { XIcon, FacebookIcon, LinkedinIcon } from "react-share";
+const CLIENTS = [
+  "GOOGLE",
+  "META",
+  "RINGCENTRAL",
+  "ABC FITNESS",
+  "HUNGERRUSH",
+  "AIIFY",
+  "APPLE MUSIC",
+  "COCA-COLA",
+  "DISNEY PARKS",
+  "EXPEDIA",
+  "MERKLE",
+];
 
-import value1 from "../imgs/values/value1.png";
-import value2 from "../imgs/values/value2.png";
-import value3 from "../imgs/values/value3.png";
-import value4 from "../imgs/values/value4.png";
-import value5 from "../imgs/values/value5.png";
-import value6 from "../imgs/values/value6.png";
-import lightServices1 from "../imgs/services/lightServices1.png";
-import lightServices2 from "../imgs/services/lightServices2.png";
-import lightServices3 from "../imgs/services/lightServices3.png";
-import lightServices4 from "../imgs/services/lightServices4.png";
-import lightServices5 from "../imgs/services/lightServices5.png";
-import lightServices6 from "../imgs/services/lightServices6.png";
+const SERVICES = [
+  {
+    id: "001",
+    title: "Revenue & Growth Strategy",
+    hook: "Not sure what to fix first?",
+    body: "We help you identify and prioritise the growth opportunities most likely to increase revenue and company value.",
+    items: [
+      "Growth opportunity audits",
+      "Revenue leakage analysis",
+      "Customer and market research",
+      "Growth prioritisation",
+      "GTM strategy",
+      "Executive and stakeholder interviews",
+      "Measurement and growth planning",
+    ],
+  },
+  {
+    id: "002",
+    title: "Demand & Lifecycle Growth",
+    hook: "You may already have more pipeline potential than you think.",
+    body: "We help you generate more value from prospects and leads already in your ecosystem.",
+    items: [
+      "Lead nurture and lifecycle strategy",
+      "Dormant and recycled lead reactivation",
+      "Email and CRM programs",
+      "Segmentation and personalisation",
+      "Conversion optimisation",
+      "Upsell and cross-sell programs",
+      "Lifecycle experimentation",
+    ],
+  },
+  {
+    id: "003",
+    title: "Customer Success & Growth",
+    hook: "Turn more customers into successful, engaged, expanding accounts.",
+    body: "We help B2B SaaS companies improve the customer lifecycle from onboarding through retention, expansion, renewal, and win-back.",
+    items: [
+      "Customer onboarding and activation",
+      "Customer journey optimisation",
+      "Adoption and engagement programs",
+      "Retention and churn prevention",
+      "Expansion and renewal strategy",
+      "Customer win-back",
+      "Customer Success processes",
+      "Voice-of-customer interviews",
+    ],
+  },
+  {
+    id: "004",
+    title: "Cross-Functional Growth Execution",
+    hook: "Growth slows when Marketing, Sales, and Customer Success are solving different problems.",
+    body: "We help leaders create clearer priorities, ownership, handoffs, and shared growth goals across Marketing, Sales, and Customer Success so the business can execute faster.",
+    items: [
+      "Marketing, Sales & CS alignment",
+      "Lifecycle ownership and handoffs",
+      "Growth operating processes",
+      "Executive and stakeholder interviews",
+      "Cross-functional workshops",
+      "Measurement and accountability",
+      "Strategic initiative leadership",
+    ],
+  },
+  {
+    id: "005",
+    title: "Events & Executive Engagement",
+    hook: "Conversations that deepen relationships with prospects, customers, and industry leaders.",
+    body: "Create experiences and conversations that build trust with the people who decide.",
+    items: [
+      "Executive interviews",
+      "Customer interviews",
+      "Executive roundtables",
+      "B2B events and webinars",
+      "Customer advisory programs",
+      "Event strategy and programming",
+      "Thought-leadership content",
+    ],
+  },
+  {
+    id: "006",
+    title: "Growth Analytics & Measurement",
+    hook: "Know what is actually driving pipeline, customer value, and growth.",
+    body: "Measurement that shows which levers moved the business — and which did not.",
+    items: [
+      "Growth KPI frameworks",
+      "Lifecycle measurement",
+      "Executive dashboards",
+      "Funnel and conversion analysis",
+      "Customer Success metrics",
+      "Campaign measurement",
+      "Experimentation frameworks",
+      "Revenue opportunity tracking",
+    ],
+  },
+];
 
-import services1 from "../imgs/services/service1.png";
-import services2 from "../imgs/services/service2.png";
-import services3 from "../imgs/services/service3.png";
-import services4 from "../imgs/services/service4.png";
-import services5 from "../imgs/services/service5.png";
-import services6 from "../imgs/services/service6.png";
+const BREAKDOWNS = [
+  "Demand that never turns into pipeline.",
+  "Customers who take too long to reach value.",
+  "Retention and expansion opportunities that go unnoticed.",
+  "Marketing, Sales, and Customer Success operating from different priorities.",
+  "Founders and executives still too involved in keeping growth initiatives moving.",
+];
 
-import founder from "../imgs/founder1.png";
-import logo from "../imgs/Vector.png";
-import BlogSection from "../components/blog-section.component";
-import { Link } from "react-router-dom";
-import Clients from "../components/clients-section.component";
+/*
+ * Client testimonials. Add a second entry here when a B2B SaaS founder or
+ * C-Suite quote is available — ideally one naming a concrete result — and the
+ * section switches to a two-column layout automatically.
+ */
+const TESTIMONIALS = [
+  {
+    quote:
+      "She's a dynamic leader skilled at seeing the market opportunity and building a multi-channel strategy designed to drive new pipeline, increase pipeline velocity, and drive win rate.",
+    name: "MICHAEL MAST",
+    title: "VICE-PRESIDENT & PRODUCT MARKETING EXECUTIVE",
+  },
+];
 
-
+const SECTION_X = "px-5 md:px-12";
 
 const HomePage = () => {
-  const [email, setEmail] = useState("");
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const { theme } = useSelector((state) => state.theme);
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSubscribe = async () => {
-    if (!email) {
-      toast.error("Please enter a valid email address.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/subscribe`,
-        {
-          email,
-        }
-      );
-      if (response.status === 200) {
-        toast.success("Subscription successful!");
-        setEmail("");
-      }
-    } catch (error) {
-      console.error("Subscription error:", error);
-      toast.error("Failed to subscribe. Please try again later.");
-    }
-  };
-
-  const toggleContactForm = () => {
-    setIsContactOpen(!isContactOpen);
-  };
-
-  // Flip to true when the blog launches publicly (also restore the header
-  // links in header.component.jsx).
-  const showBlogSection = false;
+  const toggleContactForm = () => setIsContactOpen((open) => !open);
 
   return (
-    <>
-      <div className="relative">
-        <Header />
-        <Toaster />
-        <div className="flex flex-col">
-          <div id="get-start">
-            <div
-              id="hero"
-              className="bg-contain md:bg-cover bg-no-repeat  h-72 md:h-[380px] xl:h-[550px] text-white "
-            ></div>
-            <div
-              className={`md:p-20 text-center p-6 ${
-                theme == "light"
-                  ? "bg-white text-black"
-                  : "bg-gradient-to-r from-[#030313] via-[#190638] to-[#2a0952] text-white"
-              }`}
+    <div className="spark-page min-h-screen">
+      <SiteHeader />
+
+      <main className="relative overflow-hidden">
+        <div
+          className="spark-grid-lines absolute inset-0 pointer-events-none hidden md:block"
+          aria-hidden="true"
+        />
+
+        {/* ---------------------------------------------------------------- Hero */}
+        <section className={`relative ${SECTION_X} pt-10 md:pt-12`}>
+          <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6 md:pb-7">
+            01 — B2B SAAS GROWTH CONSULTANCY — SF / NY
+          </p>
+
+          <h1 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4.5px] text-[clamp(40px,7.4vw,104px)]">
+            UNCOVER
+            <br />
+            <span className="text-[#b9b6ae]">REVENUE LEAKS.</span>
+          </h1>
+          <div className="spark-bar h-[6px] md:h-[10px] bg-[#4f2fe0] my-2.5" />
+          <h2 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4.5px] text-[clamp(40px,7.4vw,104px)]">
+            ACTIVATE
+            <br />
+            <span className="text-[#4f2fe0]">GROWTH LEVERS.</span>
+          </h2>
+          <div className="spark-bar h-[6px] md:h-[10px] bg-[#101010] my-2.5" />
+          <h2 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4.5px] text-[clamp(40px,7.4vw,104px)]">
+            BUILD
+            <br />
+            EXIT VALUE.
+          </h2>
+
+          <div className="grid lg:grid-cols-[1fr_330px] gap-8 lg:gap-14 items-end pt-10 md:pt-12 pb-10 md:pb-12">
+            <p className="text-[17px] md:text-[19px] leading-[1.6] max-w-[760px]">
+              Spark25 helps Founders and C-Suite leaders at B2B SaaS companies
+              identify and solve the growth opportunities most likely to
+              increase revenue, customer value, and enterprise value.
+            </p>
+            <button
+              type="button"
+              onClick={toggleContactForm}
+              className="bg-[#101010] text-[#eceae4] px-6 py-6 text-left hover:bg-[#4f2fe0] transition-colors"
             >
-              <div className="container mx-auto py-3">
-                <div
-                  className={`text-3xl md:text-4xl  pb-8 ${
-                    theme == "light" ? "text-black " : "text-white "
-                  } leading-none`}
-                >
-                  We fuel brands with digital marketing and design solutions
-                  that spark growth.
-                </div>
-                <div className="flex justify-center md:pt-6">
-                  <button
-                    onClick={toggleContactForm}
-                    className={`flex items-center justify-center px-4 py-2 border border-transparent rounded-full ring-1 ring-fuchsia-700 hover:-translate-y-1 ease-linear duration-200 ${
-                      theme == "light" ? "text-black " : "text-white "
-                    } `}
-                  >
-                    <span className="px-2 md:px-4 md:text-[20px] ">
-                      Get Started Today
-                    </span>
-                    <div className="flex items-center justify-center w-8 h-8 bg-none rounded-full">
-                      <svg
-                        className={`"w-6 h-6 " ${
-                          theme == "light" ? "text-black " : "text-white "
-                        } `}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
+              <span className="spark-mono block text-[10.5px] tracking-[1.5px] text-[#a5a2f0] pb-2">
+                START HERE
+              </span>
+              <span className="font-[900] text-[20px] md:text-[21px] tracking-[-0.5px] leading-[1.15] block">
+                UNCOVER YOUR GROWTH OPPORTUNITIES →
+              </span>
+            </button>
           </div>
+        </section>
 
-          <div id="brand" className=" h-[200px] ">
-            <div className="flex items-center justify-center mt-10 md:mt-6   mb-6 bg-gray-200 relative z-10 bg-none bg-transparent">
-              <p className="bg-[#2a0952] text-3xl md:text-4xl text-transparent bg-clip-text">
-                Brand's We've Helped
-              </p>
-            </div>
-            <Spark25Marquee />
+        {/* ------------------------------------------------------- Client roster */}
+        <section className={`relative ${SECTION_X} pb-7`}>
+          <div className="border-t-2 border-[#101010] pt-5 flex flex-col md:flex-row md:justify-between md:items-baseline gap-3">
+            <h2 className="font-[900] text-[20px] md:text-[27px] tracking-[-1px] max-w-[640px]">
+              EXPERIENCE ACROSS HIGH-GROWTH TECHNOLOGY & CONSUMER BRANDS
+            </h2>
+            <p className="spark-mono text-[10.5px] md:text-[11px] tracking-[1.2px] text-[#55534d] md:text-right leading-[1.7] md:max-w-[320px]">
+              15+ YEARS ACROSS B2B SAAS, TECHNOLOGY, LIFECYCLE GROWTH AND
+              CUSTOMER SUCCESS
+            </p>
           </div>
+        </section>
 
-          <div
-            id="services"
-            className={`${
-              theme == "light"
-                ? "bg-white "
-                : "bg-gradient-to-r from-[#030313] via-[#190638] to-[#2a0952] "
-            }  pt-24 pb-10`}
-          >
-            <div className="flex justify-center px-10">
-              {/* <p className="text-purple text-[26px] md:text-4xl leading-none">
-                From Clients (with Love)
-              </p> */}
-            </div>
-            {/* <div className="flex flex-row md:px-20 md:pt-10 p-5 pt-16">
-              <Clients />
-            </div> */}
-            <div className="md:px-14 px-3 md:py-20 pt-5">
-              <div
-                className={`border-solid border-2 rounded-2xl ${
-                  theme == "light" ? "border-black " : " border-white"
-                }  px-11 py-10 md:py-10`}
-              >
-                <p className=" py-10 text-3xl text-center md:text-4xl text-purple">
-                  Services
-                </p>
-                <div className="flex flex-wrap m-auto max-w-[1400px] justify-around">
-                  {/* Service 1 */}
-                  <div className="flex flex-col max-w-[375px] md:max-w-[425px] md:pb-32 pt-5 md:items-start items-center">
-                    <img
-                      src={theme == "light" ? lightServices1 : services1}
-                      className="h-16 w-16"
-                      alt="Service 1"
-                    />
-                    <div
-                      className={`${
-                        theme == "light" ? "text-black " : "text-white"
-                      } text-[24px] py-3 text-center`}
-                    >
-                      Brand Awareness
-                    </div>
-                    <div
-                      className={`${
-                        theme == "light" ? "text-gray-700" : "text-gray-300 "
-                      }  text-xl md:text-xl py-2 md:text-start text-center`}
-                    >
-                      Are you building a new business or want to raise awareness
-                      about your offering?
-                    </div>
-                    <div className="flex justify-left pl-8 text-lg">
-                      <ul
-                        className={`list-disc ${
-                          theme == "light" ? "text-black " : "text-white "
-                        }`}
-                      >
-                        <li className="text-[14px]">
-                          Content marketing (blog and video)
-                        </li>
-                        <li className="text-[14px]">SEO</li>
-                        <li className="text-[14px]">
-                          Social media (organic and paid)
-                        </li>
-                        <li className="text-[14px]">Influencer marketing</li>
-                        <li className="text-[14px]">
-                          Events, sponsorships, and partnerships
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Service 2 */}
-                  <div className="flex flex-col max-w-[375px] md:max-w-[425px] md:pb-32 pt-5 md:items-start items-center">
-                    <img
-                      src={theme == "light" ? lightServices2 : services2}
-                      className="h-16 w-16"
-                      alt="Service 2"
-                    />
-                    <div
-                      className={`${
-                        theme == "light" ? "text-black " : "text-white"
-                      } text-[24px] py-3 text-center`}
-                    >
-                      Lead Generation
-                    </div>
-                    <div
-                      className={`${
-                        theme == "light" ? "text-gray-700" : "text-gray-300 "
-                      }  text-xl md:text-xl py-2 md:text-start text-center`}
-                    >
-                      Do you want to drive more client meetings, RSVP's, sign
-                      ups, or new users?
-                    </div>
-                    <div className="flex justify-left pl-8 text-lg">
-                      <ul
-                        className={`list-disc ${
-                          theme == "light" ? "text-black " : "text-white "
-                        }`}
-                      >
-                        <li className="text-[14px]">
-                          Paid ads (search and social)
-                        </li>
-                        <li className="text-[14px]">Email/SMS marketing</li>
-                        <li className="text-[14px]">Webinars</li>
-                        <li className="text-[14px]">Direct mail</li>
-                        <li className="text-[14px]">
-                          Referrals and affiliate marketing
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Individual Item 3 */}
-                  <div className="flex flex-col max-w-[405px] md:max-w-[425px] md:pb-32 pt-5 md:items-start items-center">
-                    <img
-                      src={theme == "light" ? lightServices3 : services3}
-                      className="h-16 w-16"
-                    />
-                    <div
-                      className={`${
-                        theme == "light" ? "text-black " : "text-white"
-                      } text-[24px] py-3 text-center`}
-                    >
-                      Customer Success & Retention
-                    </div>
-                    <div
-                      className={`${
-                        theme == "light" ? "text-gray-700" : "text-gray-300 "
-                      }  text-xl md:text-xl py-2 md:text-start text-center`}
-                    >
-                      Do you want your customer to keep coming back and buying
-                      from you?
-                    </div>
-                    <div className="flex justify-left pl-8 text-lg">
-                      <ul
-                        className={`list-disc ${
-                          theme == "light" ? "text-black " : "text-white "
-                        }`}
-                      >
-                        <li className="text-[14px]">
-                          Client success and onboarding processes
-                        </li>
-                        <li className="text-[14px]">Educational content</li>
-                        <li className="text-[14px]">
-                          Upsell and cross-sell campaigns
-                        </li>
-                        <li className="text-[14px]">Referral programs</li>
-                        <li className="text-[14px]">Reviews</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Individual Item 4 */}
-                  <div className="flex flex-col max-w-[375px] md:max-w-[425px] md:pb-32 pt-5 md:items-start items-center">
-                    <img
-                      src={theme == "light" ? lightServices4 : services4}
-                      className="h-16 w-16"
-                    />
-                    <div
-                      className={`${
-                        theme == "light" ? "text-black " : "text-white"
-                      } text-[24px] py-3 text-center`}
-                    >
-                      B2B Enterprise Consulting
-                    </div>
-                    <div
-                      className={`${
-                        theme == "light" ? "text-gray-700" : "text-gray-300 "
-                      }  text-xl md:text-xl py-2 md:text-start text-center`}
-                    >
-                      Are you a business-to-business company and need assistance
-                      with making processes more efficient?
-                    </div>
-                    <div className="flex justify-left pl-8 text-lg">
-                      <ul
-                        className={`list-disc ${
-                          theme == "light" ? "text-black " : "text-white "
-                        }`}
-                      >
-                        <li className="text-[14px]">
-                          Marketing and cross-functional collaborative processes
-                        </li>
-                        <li className="text-[14px]">Budget forecasting</li>
-                        <li className="text-[14px]">
-                          Analytics/Measurement dashboards creation
-                        </li>
-                        <li className="text-[14px]">
-                          Multi-touch point campaign design and execution
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Individual Item 5 */}
-                  <div className="flex flex-col max-w-[375px] md:max-w-[425px] md:pb-32 pt-5 md:items-start items-center">
-                    <img
-                      src={theme == "light" ? lightServices5 : services5}
-                      className="h-16 w-16"
-                    />
-                    <div
-                      className={`${
-                        theme == "light" ? "text-black " : "text-white"
-                      } text-[24px] py-3 text-center`}
-                    >
-                      Web & App Development
-                    </div>
-                    <div
-                      className={`${
-                        theme == "light" ? "text-gray-700" : "text-gray-300 "
-                      }  text-xl md:text-xl py-2 md:text-start text-center`}
-                    >
-                      Ready to build your website or optimize your app? We’d
-                      love to partner and help you.
-                    </div>
-                    <div className="flex justify-left pl-8 text-lg">
-                      <ul
-                        className={`list-disc ${
-                          theme == "light" ? "text-black " : "text-white "
-                        }`}
-                      >
-                        <li className="text-[14px]">
-                          Design new website optimized for your top conversion
-                          goals
-                        </li>
-                        <li className="text-[14px]">
-                          Develop your website or app
-                        </li>
-                        <li className="text-[14px]">
-                          Optimize your website or app for SEO
-                        </li>
-                        <li className="text-[14px]">
-                          Design collateral for your clients & marketing team
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Individual Item 6 */}
-                  <div className="flex flex-col max-w-[375px] md:max-w-[425px] md:pb-10 mb-10 pt-5 md:items-start items-center">
-                    <img
-                      src={theme == "light" ? lightServices6 : services6}
-                      className="h-16 w-16"
-                    />
-                    <div
-                      className={`${
-                        theme == "light" ? "text-black " : "text-white"
-                      } text-[24px] py-3 text-center`}
-                    >
-                      Analytics & Dashboards
-                    </div>
-                    <div
-                      className={`${
-                        theme == "light" ? "text-gray-700" : "text-gray-300 "
-                      }  text-xl md:text-xl py-2 md:text-start text-center`}
-                    >
-                      Working on bringing all your data in one beautiful
-                      dashboard? We're here to help with:
-                    </div>
-                    <div className="flex justify-left pl-8 text-lg">
-                      <ul
-                        className={`list-disc ${
-                          theme == "light" ? "text-black " : "text-white "
-                        }`}
-                      >
-                        <li className="text-[14px]">
-                          Identify your "north star" metric
-                        </li>
-                        <li className="text-[14px]">
-                          Build a "one-stop" dashboard with your key growth
-                          metrics
-                        </li>
-                        <li className="text-[14px]">
-                          Bring data together from different sources
-                        </li>
-                        <li className="text-[14px]">
-                          Visualize your data & metrics
-                        </li>
-                        <li className="text-[14px]">
-                          Optimize your current analytics & measurement
-                          solutions
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-center mt-10">
-                  <button
-                    onClick={toggleContactForm}
-                    className={`flex items-center justify-center px-4 py-2 border border-transparent rounded-full  ring-1 ring-fuchsia-700 hover:-translate-y-1 ease-linear duration-200 ${
-                      theme == "light" ? "text-black " : "text-white"
-                    }`}
-                  >
-                    <span className="px-2 md:px-4 md:text-[20px]">
-                      Get Free Executive Feedback
-                    </span>
-                    <div className="flex items-center justify-center w-8 h-8 bg-none rounded-full">
-                      <svg
-                        className={`w-6 h-6 ${
-                          theme == "light" ? "text-black " : "text-white"
-                        }`}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                  </button>
-                </div>
+        <div className="relative bg-[#101010] text-[#eceae4] py-3.5 overflow-hidden">
+          <div className="spark-tape spark-mono text-[12px] md:text-[13px] tracking-[2px]">
+            {[0, 1].map((copy) => (
+              <div key={copy} className="whitespace-nowrap pr-8">
+                {CLIENTS.map((client) => `${client} // `).join("")}
               </div>
-            </div>
-          </div>
-
-          {showBlogSection && (
-          <div
-            id="blog"
-            className={`${
-              theme == "light"
-                ? "bg-white"
-                : "bg-gradient-to-r from-[#030313] via-[#190638] to-[#2a0952]"
-            }  `}
-          >
-            <div className="md:px-32 pb-20 px-5">
-              <Link
-                to="./blog"
-                className="flex items-center w-36 text-3xl text-center text-purple md:text-left md:text-4xl pb-10 hover:-translate-y-1 ease-linear duration-200"
-              >
-                Blog
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  width="44"
-                  height="44"
-                  viewBox="0 0 24 24"
-                  fill={theme === "light" ? "black" : "#8b46ff"}
-                >
-                  <g fill-rule="evenodd">
-                    <path d="M15.53 9.17l-6.72 6.71 -.71-.71 6.71-6.72 .7.7Z"></path>
-                    <path d="M15.03 8.96h-4.45v-1h4.94c.27 0 .5.22.5.5v4.94h-1V8.95Z"></path>
-                  </g>
-                </svg>
-              </Link>
-              <BlogSection />
-              {/* <div className="grid md:grid-cols-2 md:gap-10 md:px-10">
-                <div className="flex flex-col justify-left">
-                  <div
-                    className={`text-2xl ${
-                      theme == "light" ? "text-black" : "text-white"
-                    }`}
-                  >
-                    STAY IN TOUCH
-                  </div>
-                  <img
-                    src="/assets/newsletter.png"
-                    className="md:w-fit h-fit pt-5"
-                  ></img>
-                  <div className="card-mail flex md:mb-11 my-10">
-                    <input
-                      type="email"
-                      className="border-l border-t border-b border-gray-200 rounded-l-full w-[240px] md:w-[320px] text-xl md:px-3 px-1 md:py-2"
-                      placeholder="Email Address"
-                      value={email}
-                      onChange={handleEmailChange}
-                    ></input>
-                    <button
-                      className="text-black font-bold capitalize md:py-2 md:text-xl rounded-r-full md:px-6 py-[5.5px] px-2 tracking-widest bg-[linear-gradient(to_right,_#6552cb,_#fd95ff)]"
-                      onClick={handleSubscribe}
-                    >
-                      SUBSCRIBE
-                    </button>
-                  </div>
-                  <div className="text-left text-xl italic text-dark-grey">
-                    We don’t share your email or spam.
-                  </div>
-                </div>
-                <div>
-                  <div
-                    className={`md:text-xl text-xl mt-6 max-w-[595px] tracking-wide ${
-                      theme == "light" ? "text-black" : "text-white"
-                    }`}
-                  >
-                    Never miss a thing. Subscribe here to get insightful
-                    marketing stories, tips, and tricks delivered straight to
-                    your inbox.
-                  </div>
-                </div>
-              </div> */}
-            </div>
-          </div>
-          )}
-
-          <div
-            id="about-us"
-            className="px-14 md:py-28 py-10 pb-20 bg-[#e9deff]"
-          >
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-10">
-              <div className="flex flex-col pt-11">
-                <div className="text-3xl md:text-4xl text-purple pb-8 pt-3 leading-none">
-                  Spark25 is your go-to full-stack marketing partner.
-                </div>
-                <div className="text-[16px] pb-8">
-                  From high-impact go-to-market campaigns to technical search
-                  engine optimization (SEO), our combined 50+ years of marketing
-                  expertise will help you achieve sustainable growth.
-                </div>
-                <div className="text-[16px]">
-                  We've worked with the Meta's and Google's of the world, as
-                  well as small growing startups and ad agencies, and we've
-                  learned to see the “big picture” and excel in executing
-                  campaigns across organic social, paid ads, SEO, email,
-                  webinars, events, affiliate marketing, influencer marketing,
-                  referrals, reviews, and more.
-                </div>
-                {/* <div className="flex items-center justify-start gap-3 md:pt-24 pt-10">
-                  <img
-                    src={founder}
-                    alt="Lesya Pishchevskaya"
-                    className="relative inline-block h-14 w-14 !rounded-full object-cover object-center"
-                  />
-                  <div className="flex flex-col">
-                    <p className="text-2xl font-semibold">
-                      Lesya Pishchevskaya
-                    </p>
-                    <p className="text-xl text-gray-500">Founder</p>
-                  </div>
-                  <Link to="https://www.linkedin.com/in/lesyap/">
-                    <AiFillLinkedin className="w-10 h-10 ml-5" />
-                  </Link>
-                </div> */}
-              </div>
-              <img src="/assets/rectangle.png"></img>
-            </div>
-            <div className="text-center text-3xl md:text-4xl text-purple mt-10 pt-24 pb-16">
-              Our Values
-            </div>
-            <div className="grid md:grid-cols-3 grid-cols-2 md:gap-20 gap-10 md:px-60">
-              <div className="flex flex-col items-center max-w-[225px] mx-auto">
-                <img src={value6} className="h-20 w-20 " />
-                <div className="md:text-2xl text-xl text-center pt-3 font-semibold">
-                  Be a superhero for your team and clients
-                </div>
-              </div>
-              <div className="flex flex-col items-center max-w-[225px] mx-auto">
-                <img src={value1} className="h-20 w-20 " />
-                <div className="md:text-2xl text-xl text-center pt-3 font-semibold">
-                  Stay authentic, be You
-                </div>
-              </div>
-              <div className="flex flex-col items-center max-w-[225px] mx-auto">
-                <img src={value2} className="h-20 w-20 " />
-                <div className="md:text-2xl text-xl text-center pt-3 font-semibold">
-                  Spark creativity with a scoop of data
-                </div>
-              </div>
-              <div className="flex flex-col items-center max-w-[225px] mx-auto">
-                <img src={value3} className="h-20 w-20 " />
-                <div className="md:text-2xl text-xl text-center pt-3 font-semibold">
-                  Approach with a solution-focused mindset
-                </div>
-              </div>
-              <div className="flex flex-col items-center max-w-[225px] mx-auto">
-                <img src={value4} className="h-20 w-20 " />
-                <div className="md:text-2xl text-xl text-center pt-3 font-semibold">
-                  Pivot and adapt as needed
-                </div>
-              </div>
-              <div className="flex flex-col items-center max-w-[225px] mx-auto">
-                <img src={value5} className="h-20 w-20 " />
-                <div className="md:text-2xl text-xl text-center pt-3 font-semibold">
-                  Grow from wins and mistakes alike
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div id="footer" className="p-5">
-            <div className="rounded-3xl min-h-[324px] bg-white pt-14 pb-6 md:px-96 px-10 text-center">
-              <div className="max-w-[556px] mx-auto">
-                <div className="text-3xl md:text-[32px] ">It's time to</div>
-                <div className="text-3xl md:text-4xl text-purple">
-                  Accelerate Your Growth!
-                </div>
-                <div className="text-xl text-dark-grey">
-                  We look forward to hearing from you.
-                </div>
-                <div className="flex justify-center pt-6">
-                  <button
-                    onClick={toggleContactForm}
-                    className="flex items-center justify-center px-4 py-2 rounded-full ring-1 ring-fuchsia-700 hover:-translate-y-1 ease-linear duration-200"
-                  >
-                    <span className="px-2 md:px-4 md:text-[20px]">
-                      Get Started Today
-                    </span>
-                    <div className="flex items-center justify-center w-8 h-8 bg-none rounded-full">
-                      <svg
-                        className="w-6 h-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="py-16 px-10">
-              <div>
-                <div className="flex flex-col justify-between h-[350px] md:h-[200px] md:justify-around md:items-center md:flex-row">
-                  <div className="flex items-center justify-start gap-3">
-                    <img
-                      src={logo}
-                      alt="Lesya Pishchevskaya"
-                      className="relative inline-block h-25 w-24 object-center"
-                    />
-                    <p className="text-6xl px-3 font-bold text-white">
-                      Spark25
-                    </p>
-                  </div>
-
-                  <div className="flex">
-                    <div className="text-lg mr-6">
-                      <Link to="https://www.instagram.com/spark25agency/?igsh=MWxqYmpwNnF5bDRoZg%3D%3D">
-                        <img
-                          src={instagramIcon}
-                          className="rounded-lg w-10 h-10"
-                        />
-                      </Link>
-                    </div>
-                    <div className="text-lg mr-6">
-                      <Link to="https://www.linkedin.com/company/spark25">
-                        <LinkedinIcon className="rounded-lg w-10 h-10" />
-                      </Link>
-                    </div>
-                    <div className="text-lg mr-6 ">
-                      <Link
-                        to="https://www.facebook.com/profile.php?id=61560794964936"
-                        className="rounded-lg"
-                      >
-                        <FacebookIcon className="rounded-lg w-10 h-10" />
-                      </Link>
-                    </div>
-                    <div className="text-lg">
-                      <Link to="https://x.com/spark25agency">
-                        <XIcon className="rounded-lg w-10 h-10" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 md:mb-10">
-                    <p className="mb-2 text-gray-400">Email us</p>
-                    <a
-                      href="mailto:lesya@spark25.com"
-                      className="text-2xl text-white hover:text-gray-300"
-                    >
-                      lesya@spark25.com
-                    </a>
-                  </div>
-                  {/* <div className="mb-3">
-                    <p className="mb-2 text-gray-400">Call Us</p>
-                    <a
-                      href="tel:+16507399525"
-                      className="text-2xl text-white hover:text-gray-300"
-                    >
-                      (650) 739-9525
-                    </a>
-                  </div> */}
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 text-white border-t-2 px-6 border-gray-500 pt-5">
-              <div className="text-[14px]">
-                2024 SPARK25. All Rights Reserved
-              </div>
-              <div className="text-[14px] text-right">
-                <Link className="hover:underline" to="/privacy-policy">
-                  Privacy Policy
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+
+        {/* ------------------------------------------------------------ The thread */}
+        <section className={`relative ${SECTION_X} pt-14 md:pt-16`}>
+          <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
+            02 — THE THREAD
+          </p>
+          <div className="grid md:grid-cols-3 border-t-2 border-[#101010]">
+            {THREAD.map((item, index) => (
+              <div
+                key={item.step}
+                className={`py-7 md:py-8 md:px-8 ${
+                  index === 0 ? "md:pl-0" : ""
+                } ${index === 2 ? "md:pr-0" : ""} ${
+                  index < 2
+                    ? "md:border-r border-[rgba(16,16,16,0.25)] border-b md:border-b-0"
+                    : ""
+                }`}
+              >
+                <p className="spark-mono text-[11px] text-[#4f2fe0] pb-3.5">
+                  {item.step}
+                </p>
+                <h3 className="font-[900] text-[clamp(28px,3.2vw,40px)] tracking-[-1.5px] leading-[0.95]">
+                  {item.title[0]}
+                  <br />
+                  {item.title[1]}
+                </h3>
+                <p className="text-[14.5px] leading-[1.65] text-[#3a3833] pt-3.5">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* -------------------------------------------------------------- Services */}
+        <section id="services" className={`relative ${SECTION_X} pt-14 md:pt-16`}>
+          <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
+            03 — SERVICES
+          </p>
+          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-14 items-start pb-8">
+            <h2 className="font-[900] text-[clamp(32px,4.6vw,62px)] leading-[0.94] tracking-[-1.5px] md:tracking-[-2.5px]">
+              WHERE IS YOUR BUSINESS LEAVING REVENUE ON THE TABLE?
+            </h2>
+            <div>
+              <p className="text-[17px] md:text-[18px] leading-[1.6] font-medium pb-3.5">
+                Growth problems rarely live inside one department.
+              </p>
+              <p className="text-[15.5px] md:text-[16px] leading-[1.7] text-[#3a3833]">
+                We help Founders and C-Suite leaders uncover where revenue and
+                customer value are being lost across Marketing, Sales, Customer
+                Success, and the customer lifecycle — then prioritise and solve
+                the opportunities that matter most.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col">
+            {SERVICES.map((service, index) => (
+              <article
+                key={service.id}
+                className={`grid lg:grid-cols-[74px_1fr_1.35fr] gap-4 lg:gap-8 py-7 md:py-8 ${
+                  index === 0
+                    ? "border-t-2 border-[#101010]"
+                    : "border-t border-[#101010]"
+                } ${
+                  index === SERVICES.length - 1
+                    ? "border-b-2 border-[#101010]"
+                    : ""
+                }`}
+              >
+                <p className="spark-mono text-[12px] text-[#4f2fe0] lg:pt-1.5">
+                  [{service.id}]
+                </p>
+                <div>
+                  <h3 className="font-[900] text-[clamp(23px,2.5vw,31px)] tracking-[-1px] leading-[1.03]">
+                    {service.title.toUpperCase()}
+                  </h3>
+                  <p className="text-[15px] md:text-[16px] leading-[1.6] text-[#4f2fe0] font-medium pt-3">
+                    {service.hook}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[15px] md:text-[15.5px] leading-[1.7] text-[#3a3833] pb-4">
+                    {service.body}
+                  </p>
+                  <ul className="spark-mono text-[12px] leading-[1.95] text-[#55534d] sm:columns-2 sm:gap-8">
+                    {service.items.map((item) => (
+                      <li key={item}>&gt; {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* --------------------------------------------------------- Mid-page CTA */}
+        <section className={`relative ${SECTION_X} py-12 md:py-14`}>
+          <div className="grid lg:grid-cols-[1fr_330px] bg-[#4f2fe0] text-[#eceae4]">
+            <div className="p-8 md:p-12">
+              <h2 className="font-[900] text-[clamp(30px,3.8vw,50px)] leading-[0.98] tracking-[-1.5px] md:tracking-[-2px]">
+                NOT SURE WHERE YOUR BIGGEST GROWTH OPPORTUNITY IS?
+              </h2>
+              <p className="text-[16px] md:text-[16.5px] leading-[1.7] text-[rgba(236,234,228,0.88)] pt-5 max-w-[720px]">
+                If you're a Founder or C-Suite leader at a B2B SaaS company,
+                we'll help you identify where pipeline, customer value, or
+                revenue may be leaking — and what to address first.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={toggleContactForm}
+              className="bg-[#101010] flex items-center justify-center p-8 hover:bg-[#000000] transition-colors"
+            >
+              <span className="text-center">
+                <span className="spark-mono block text-[10.5px] tracking-[1.5px] text-[#a5a2f0] pb-2.5">
+                  NEXT STEP
+                </span>
+                <span className="font-[900] text-[22px] md:text-[23px] tracking-[-0.5px] leading-[1.15] block">
+                  BOOK A GROWTH OPPORTUNITY CALL
+                </span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ The studio */}
+        <section className={`relative ${SECTION_X}`}>
+          <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
+            04 — THE STUDIO
+          </p>
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 items-start border-t-2 border-[#101010] pt-7">
+            <h2 className="font-[900] text-[clamp(26px,2.9vw,38px)] leading-[1.05] tracking-[-1.5px]">
+              SPARK25 IS A B2B SAAS GROWTH CONSULTANCY FOCUSED ON THE
+              OPPORTUNITIES BETWEEN ACQUISITION AND LONG-TERM CUSTOMER VALUE.
+            </h2>
+            <div className="text-[15.5px] md:text-[16px] leading-[1.75] text-[#3a3833] flex flex-col gap-4">
+              <p>
+                We help Founders and C-Suite leaders find where revenue is being
+                lost across Marketing, Sales, Customer Success, and the customer
+                lifecycle — then prioritise and execute the initiatives most
+                likely to improve growth.
+              </p>
+              <p>
+                Our work spans demand generation, lifecycle marketing, Customer
+                Success, retention, expansion, GTM, analytics, executive
+                interviewing, events, and cross-functional execution.
+              </p>
+              <p>
+                With 15+ years of experience across companies including Google,
+                Meta, RingCentral, ABC Fitness/Glofox, HungerRush, Aiify, and
+                other technology businesses, we bring both strategic perspective
+                and hands-on execution.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* --------------------------------------------------- Where growth breaks */}
+        <section className={`relative ${SECTION_X} pt-12 md:pt-14`}>
+          <h2 className="font-[900] text-[clamp(24px,2.6vw,34px)] tracking-[-1.2px] pb-6">
+            WE FOCUS ON WHERE B2B SAAS GROWTH BREAKS DOWN
+          </h2>
+          <ol className="flex flex-col">
+            {BREAKDOWNS.map((line, index) => (
+              <li
+                key={line}
+                className={`grid grid-cols-[46px_1fr] md:grid-cols-[74px_1fr] gap-4 md:gap-8 py-4 md:py-5 border-t border-[rgba(16,16,16,0.3)] items-baseline ${
+                  index === BREAKDOWNS.length - 1
+                    ? "border-b-2 border-b-[#101010]"
+                    : ""
+                }`}
+              >
+                <span className="spark-mono text-[11.5px] text-[#4f2fe0]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="text-[17px] md:text-[21px] leading-[1.45] font-medium">
+                  {line}
+                </span>
+              </li>
+            ))}
+          </ol>
+          <p className="text-[16px] md:text-[17px] leading-[1.6] text-[#3a3833] pt-6 max-w-[780px]">
+            Spark25 helps turn those gaps into focused, measurable growth
+            opportunities.
+          </p>
+        </section>
+
+        {/* ----------------------------------------------------------- Testimonial */}
+        <section className={`relative ${SECTION_X} pt-12 md:pt-14`}>
+          <div className="grid md:grid-cols-[60px_1fr] gap-4 md:gap-9">
+            <p
+              className="spark-mono text-[11px] tracking-[2px] text-[#55534d] hidden md:block"
+              style={{ writingMode: "vertical-rl" }}
+            >
+              05 — TESTIMONY
+            </p>
+            <div
+              className={`border-t-2 border-[#101010] pt-7 grid gap-10 ${
+                TESTIMONIALS.length > 1 ? "md:grid-cols-2" : ""
+              }`}
+            >
+              {TESTIMONIALS.map((item) => (
+                <figure key={item.name} className="m-0">
+                  <blockquote className="text-[19px] md:text-[24px] leading-[1.45] font-medium tracking-[-0.3px] m-0">
+                    &ldquo;{item.quote}&rdquo;
+                  </blockquote>
+                  <figcaption className="spark-mono text-[11px] tracking-[1.5px] text-[#55534d] pt-5 leading-[1.7]">
+                    {item.name}
+                    <br />
+                    {item.title}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ Final CTA */}
+        <section className={`relative ${SECTION_X} pt-10 md:pt-12 pb-12`}>
+          <div className="grid lg:grid-cols-[1fr_320px] bg-[#101010] text-[#eceae4]">
+            <div className="p-8 md:p-12">
+              <h2 className="font-[900] text-[clamp(28px,3.9vw,52px)] leading-[0.98] tracking-[-1.5px] md:tracking-[-2px]">
+                BUILD MORE REVENUE.
+                <br />
+                MORE CUSTOMER VALUE.
+                <br />
+                <span className="text-[#a5a2f0]">MORE ENTERPRISE VALUE.</span>
+              </h2>
+              <p className="text-[16px] md:text-[16.5px] leading-[1.7] text-[rgba(236,234,228,0.72)] pt-5 max-w-[640px]">
+                Let's uncover the growth opportunities that can make your B2B
+                SaaS company more valuable.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={toggleContactForm}
+              className="bg-[#4f2fe0] flex items-center justify-center p-8 hover:bg-[#3a1fb0] transition-colors"
+            >
+              <span className="text-center">
+                <span className="font-[900] text-[21px] md:text-[22px] tracking-[-0.5px] leading-[1.2] block">
+                  UNCOVER YOUR GROWTH OPPORTUNITIES
+                </span>
+                <span className="spark-mono block text-[12px] pt-3.5 text-[rgba(236,234,228,0.85)]">
+                  lesya@spark25.com
+                </span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        {/* --------------------------------------------------------------- Footer */}
+        <footer
+          className={`relative ${SECTION_X} border-t border-[#101010] py-5 flex flex-col md:flex-row md:justify-between gap-2 spark-mono text-[10px] md:text-[10.5px] tracking-[1.5px] text-[#55534d]`}
+        >
+          <p>SPARK25 LLC — B2B SAAS GROWTH, LIFECYCLE &amp; CUSTOMER SUCCESS</p>
+          <p>
+            <a href="/about" className="hover:text-[#4f2fe0]">
+              ABOUT
+            </a>{" "}
+            /{" "}
+            <a href="/privacy-policy" className="hover:text-[#4f2fe0]">
+              PRIVACY
+            </a>{" "}
+            /{" "}
+            <a
+              href="https://www.linkedin.com/in/lesyap"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#4f2fe0]"
+            >
+              LINKEDIN
+            </a>{" "}
+            /{" "}
+            <a
+              href="https://www.instagram.com/spark25agency"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#4f2fe0]"
+            >
+              INSTAGRAM
+            </a>
+          </p>
+        </footer>
+      </main>
+
       <ContactUs isOpen={isContactOpen} toggleContactForm={toggleContactForm} />
-    </>
+    </div>
   );
 };
 

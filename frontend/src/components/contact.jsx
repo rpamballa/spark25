@@ -77,9 +77,9 @@ const ContactUs = ({ isOpen, toggleContactForm }) => {
         {/* Contact info */}
         <div className=" md:w-1/2 p-5 md:p-10">
           <div className="md:mb-52">
-            <h2 className={`text-3xl md:text-4xl md:mb-5 ${ theme === "light" ? "text-black" : ""}`}>Let's Talk</h2>
+            <h2 className={`text-3xl md:text-4xl md:mb-5 ${ theme === "light" ? "text-black" : ""}`}>Let's Talk Growth</h2>
             <p className="text-xl text-gray-400 italic mb-5">
-              We'll get back to you in the next 1-2 business days.
+              Tell us where your biggest growth challenge is today. We'll get back to you within 1-2 business days.
             </p>
           </div>
           <div>
@@ -128,7 +128,7 @@ const ContactUs = ({ isOpen, toggleContactForm }) => {
             </div>
             <div>
               <label className={`block text-lg md:text-2xl font-medium ${theme === "light" ? "text-black" : ""}`}>
-                Email
+                Work Email
               </label>
               <input
                 type="email"
@@ -141,7 +141,7 @@ const ContactUs = ({ isOpen, toggleContactForm }) => {
             </div>
             <div className="">
               <label className={`block text-lg md:text-2xl font-medium ${theme === "light" ? "text-black" : ""}`}>
-                Service Type
+                What Can We Help With?
               </label>
               <select
                 name="SERVICE" // Update to match the formData key for consistency
@@ -151,26 +151,58 @@ const ContactUs = ({ isOpen, toggleContactForm }) => {
                 onChange={handleChange}
               >
                
-                <option value="Brand Awareness">Brand Awareness</option>
-                <option value="Lead Generation">Lead Generation</option>
+                <option value="Revenue & Growth Strategy">
+               
+                  Revenue & Growth Strategy
+               
+                </option>
+               
+                <option value="Demand & Lifecycle Growth">
+               
+                  Demand & Lifecycle Growth
+               
+                </option>
+               
                 <option value="Customer Success & Retention">
+               
                   Customer Success & Retention
+               
                 </option>
-                <option value="B2B Enterprise Consulting">
-                  B2B Enterprise Consulting
+               
+                <option value="Expansion & Revenue Growth">
+               
+                  Expansion & Revenue Growth
+               
                 </option>
-                <option value="Web & App Development">
-                  Web & App Development
+               
+                <option value="Cross-Functional Growth Execution">
+               
+                  Cross-Functional Growth Execution
+               
                 </option>
-                <option value="Analytics & Dashboards">
-                  Analytics & Dashboards
+               
+                <option value="Events & Executive Engagement">
+               
+                  Events & Executive Engagement
+               
                 </option>
-                <option value="Other">Other</option>
+               
+                <option value="Growth Analytics & Measurement">
+               
+                  Growth Analytics & Measurement
+               
+                </option>
+               
+                <option value="Not Sure - Help Me Identify the Opportunity">
+               
+                  Not Sure - Help Me Identify the Opportunity
+               
+                </option>
               </select>
             </div>
             <div>
               <label className={`block text-lg md:text-2xl font-medium ${theme === "light" ? "text-black" : ""}`}>
-                Project Details
+                Tell Us About Your Growth Challenge
               </label>
               <textarea
                 className="border-b-2 border-gray-400 bg-transparent focus:outline-none focus:border-gray-600 text-lg md:text-2xl p-2 mb-6 md:mb-24 w-full"
