@@ -380,3 +380,12 @@
 .spark-page .spark-legal [data-custom-class="title"] {
   display: none;
 }
+
+/* Primary call to action, carrying the logo's purple-to-cyan gradient. */
+.spark-cta {
+  background-image: linear-gradient(115deg, #7959f5 0%, #5d7ef0 45%, #2fbce0 100%);
+  box-shadow: 0 10px 30px rgba(121, 89, 245, 0.28);
+}
+.spark-cta:hover {
+  box-shadow: 0 14px 38px rgba(121, 89, 245, 0.4);
+}

@@ -165,7 +165,7 @@ const HomePage = () => {
           <h1 className="font-[900] leading-[0.9] tracking-[-1.5px] md:tracking-[-3px] text-[clamp(34px,5.6vw,78px)]">
             UNCOVER
             <br />
-            <span className="text-[#b9b6ae]">REVENUE LEAKS.</span>
+            <span className="text-[#b9b6ae]">REVENUE OPPORTUNITIES.</span>
           </h1>
           <div className="spark-bar h-[6px] md:h-[10px] bg-[#4f2fe0] my-2.5" />
           <h2 className="font-[900] leading-[0.9] tracking-[-1.5px] md:tracking-[-3px] text-[clamp(34px,5.6vw,78px)]">
@@ -177,7 +177,7 @@ const HomePage = () => {
           <h2 className="font-[900] leading-[0.9] tracking-[-1.5px] md:tracking-[-3px] text-[clamp(34px,5.6vw,78px)]">
             BUILD
             <br />
-            EXIT VALUE.
+            ENTERPRISE VALUE.
           </h2>
 
           <div className="grid lg:grid-cols-[1fr_330px] gap-8 lg:gap-14 items-end pt-10 md:pt-12 pb-10 md:pb-12">
@@ -189,9 +189,9 @@ const HomePage = () => {
             <button
               type="button"
               onClick={toggleContactForm}
-              className="bg-[#101010] text-[#eceae4] px-6 py-6 text-left hover:bg-[#4f2fe0] transition-colors"
+              className="spark-cta text-white px-6 py-6 text-left transition-transform hover:-translate-y-0.5"
             >
-              <span className="spark-mono block text-[10.5px] tracking-[1.5px] text-[#a5a2f0] pb-2">
+              <span className="spark-mono block text-[10.5px] tracking-[1.5px] text-[rgba(255,255,255,0.85)] pb-2">
                 START HERE
               </span>
               <span className="font-[900] text-[20px] md:text-[21px] tracking-[-0.5px] leading-[1.15] block">
