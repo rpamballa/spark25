@@ -1,7 +1,7 @@
 import SiteHeader from "../components/site-header.component";
 import SiteFooter from "../components/site-footer.component";
 
-import lesyaPhoto from "../imgs/lesya.jpg";
+import lesyaPhoto from "../imgs/LesyaHeadshot.jpg";
 
 const TAGLINE =
   "Marketing \u0026 Growth Strategist with a Journalist\u2019s Curiosity";
