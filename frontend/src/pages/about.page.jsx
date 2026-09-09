@@ -26,6 +26,8 @@ const BIO = [
 
 const CREDENTIALS = [
   ["M.S. JOURNALISM", "COLUMBIA UNIVERSITY"],
+  ["B.S. BUSINESS ADMINISTRATION", "UC BERKELEY"],
+  ["B.A. MASS COMMUNICATIONS", "UC BERKELEY"],
   ["SENIOR MARKETING", "META / GOOGLE"],
   ["15+ YEARS", "B2B SAAS & TECHNOLOGY"],
 ];
@@ -64,7 +66,7 @@ const AboutPage = () => (
               {LEAD}
             </p>
 
-            <dl className="grid sm:grid-cols-3 gap-6 border-t-2 border-[#101010] pt-6 mt-8">
+            <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-6 border-t-2 border-[#101010] pt-6 mt-8">
               {CREDENTIALS.map(([term, detail]) => (
                 <div key={term}>
                   <dt className="font-[900] text-[clamp(17px,1.7vw,22px)] tracking-[-0.7px] leading-[1.1]">

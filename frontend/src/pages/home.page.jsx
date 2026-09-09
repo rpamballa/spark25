@@ -4,25 +4,6 @@ import SiteHeader from "../components/site-header.component";
 import SiteFooter from "../components/site-footer.component";
 import ContactUs from "../components/contact";
 
-/* The three-step thread that runs through the whole page. */
-const THREAD = [
-  {
-    step: "STEP 01",
-    title: ["UNCOVER", "REVENUE LEAKS"],
-    body: "Find where pipeline, customer value and revenue are being lost across the lifecycle.",
-  },
-  {
-    step: "STEP 02",
-    title: ["ACTIVATE", "GROWTH LEVERS"],
-    body: "Prioritise and execute the initiatives most likely to move revenue and retention.",
-  },
-  {
-    step: "STEP 03",
-    title: ["BUILD", "EXIT VALUE"],
-    body: "Compound customer value into a more durable, more valuable business.",
-  },
-];
-
 const CLIENTS = [
   "GOOGLE",
   "META",
@@ -178,22 +159,22 @@ const HomePage = () => {
         {/* ---------------------------------------------------------------- Hero */}
         <section className={`relative ${SECTION_X} pt-10 md:pt-12`}>
           <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6 md:pb-7">
-            B2B SAAS GROWTH CONSULTANCY — SF / NY
+            B2B SAAS GROWTH CONSULTANCY
           </p>
 
-          <h1 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4.5px] text-[clamp(40px,7.4vw,104px)]">
+          <h1 className="font-[900] leading-[0.9] tracking-[-1.5px] md:tracking-[-3px] text-[clamp(34px,5.6vw,78px)]">
             UNCOVER
             <br />
             <span className="text-[#b9b6ae]">REVENUE LEAKS.</span>
           </h1>
           <div className="spark-bar h-[6px] md:h-[10px] bg-[#4f2fe0] my-2.5" />
-          <h2 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4.5px] text-[clamp(40px,7.4vw,104px)]">
+          <h2 className="font-[900] leading-[0.9] tracking-[-1.5px] md:tracking-[-3px] text-[clamp(34px,5.6vw,78px)]">
             ACTIVATE
             <br />
             <span className="text-[#4f2fe0]">GROWTH LEVERS.</span>
           </h2>
           <div className="spark-bar h-[6px] md:h-[10px] bg-[#101010] my-2.5" />
-          <h2 className="font-[900] leading-[0.9] tracking-[-2px] md:tracking-[-4.5px] text-[clamp(40px,7.4vw,104px)]">
+          <h2 className="font-[900] leading-[0.9] tracking-[-1.5px] md:tracking-[-3px] text-[clamp(34px,5.6vw,78px)]">
             BUILD
             <br />
             EXIT VALUE.
@@ -242,39 +223,6 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-
-        {/* ------------------------------------------------------------ The thread */}
-        <section className={`relative ${SECTION_X} pt-14 md:pt-16`}>
-          <p className="spark-mono text-[10px] md:text-[11px] tracking-[1.5px] text-[#4f2fe0] pb-6">
-            THE THREAD
-          </p>
-          <div className="grid md:grid-cols-3 border-t-2 border-[#101010]">
-            {THREAD.map((item, index) => (
-              <div
-                key={item.step}
-                className={`py-7 md:py-8 md:px-8 ${
-                  index === 0 ? "md:pl-0" : ""
-                } ${index === 2 ? "md:pr-0" : ""} ${
-                  index < 2
-                    ? "md:border-r border-[rgba(16,16,16,0.25)] border-b md:border-b-0"
-                    : ""
-                }`}
-              >
-                <p className="spark-mono text-[11px] text-[#4f2fe0] pb-3.5">
-                  {item.step}
-                </p>
-                <h3 className="font-[900] text-[clamp(28px,3.2vw,40px)] tracking-[-1.5px] leading-[0.95]">
-                  {item.title[0]}
-                  <br />
-                  {item.title[1]}
-                </h3>
-                <p className="text-[14.5px] leading-[1.65] text-[#3a3833] pt-3.5">
-                  {item.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* -------------------------------------------------------------- Services */}
         <section id="services" className={`relative ${SECTION_X} pt-14 md:pt-16`}>
